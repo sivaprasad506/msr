@@ -1,0 +1,37 @@
+---
+ - hosts: dev
+   
+   vars:
+        packages:
+	      - git
+		  - git-core
+		  - gcc
+		  - apache2
+		  
+   tasks: 
+      - name: Install the packages
+	    apt: name={{item}} state=present
+		with_items: "{{packages}}"
+		become: yes
+		become_method: sudo
+		
+		
+      - name: Restart Apache
+	    service: 
+		     name: apache2
+			 state: restarted
+		become: yes
+        become_method: sudo
+
+      - name: clone the html file from repository
+        shell: git clone https:// so on
+
+      - name: copy the html file
+        shell: cp index.html /var/www/html
+        become: yes
+        become_method: sudo
+		
+		debug message with each package
+     -  debug: 
+         msg: "{{item}}"
+       with_items: "{{packages}}"
